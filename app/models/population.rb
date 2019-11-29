@@ -33,7 +33,7 @@ class Population < ApplicationRecord
     return PopulationCalculator.get_population_for_year(pop, next_pop, year).population if next_pop
 
     # If we don't have a greater value, just return the population we found
-    return pop
+    return pop.population
   end
 
 end
