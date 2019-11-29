@@ -4,16 +4,16 @@ class Population < ApplicationRecord
     Population.all.map(&:year).min.year
   end
 
+  def self.get_max_less_than_year(year)
+    Population.where("year <= :year", year: year).order('year desc').first
+  end
+
   def self.get(year)
     year = year.to_i
 
     return 0 if year < min_year
 
-    pop = nil
-    until pop
-      pop = Population.find_by_year(Date.new(year))
-      year = year - 1
-    end
+    pop = Population.get_max_less_than_year(Date.new(year))
 
     return pop.population if pop
 
