@@ -1,7 +1,9 @@
 module ApplicationHelper
 
   def year
-    @year.html_safe
+    if @year
+      @year.html_safe
+    end
   end
 
   def population

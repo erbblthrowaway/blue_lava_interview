@@ -1,5 +1,11 @@
 <h1>Get your population numbers here</h1>
-<form method="get" action="populations/by_year">
+<form method="get" action=<%= populations_path %>>
   <input name="year" />
   <button type="submit">Submit</button>
 </form>
+
+<% if year %>
+<h3>You requested the population for: <%= sanitize year %></h3>
+
+<h3>Population: <%= population %></h3>
+<% end %>
