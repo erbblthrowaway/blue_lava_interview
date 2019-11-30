@@ -34,13 +34,30 @@ RSpec.describe PopulationCalculator do
     end
   end
 
-  describe "get_population_for_year" do
+  describe "estimated_pop_for_past_year" do
     it "returns the correct population for the projected year" do
       pop_min = Population.new year: Date.new(1950), population: 1500
       pop_max = Population.new year: Date.new(1960), population: 2000
 
       expected = Population.new year: Date.new(1955), population: 1750
-      actual = PopulationCalculator.get_population_for_year(pop_min, pop_max, 1955)
+      actual = PopulationCalculator.estimated_pop_for_past_year(pop_min, pop_max, 1955)
+
+      expect(actual.year).to eq(expected.year)
+      expect(actual.population).to eq(expected.population)
+    end
+  end
+
+  describe "estimated_future_pop" do
+    it "returns a value based off estimated growth rates" do
+      pop_start = Population.new year: Date.new(1990), population: 100
+      expected = Population.new year: Date.new(1991), population: 109
+      actual = PopulationCalculator.estimated_future_pop(pop_start, 1991)
+
+      expect(actual.year).to eq(expected.year)
+      expect(actual.population).to eq(expected.population)
+
+      expected = Population.new year: Date.new(1992), population: 118
+      actual = PopulationCalculator.estimated_future_pop(pop_start, 1992)
 
       expect(actual.year).to eq(expected.year)
       expect(actual.population).to eq(expected.population)
