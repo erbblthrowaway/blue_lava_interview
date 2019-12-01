@@ -47,20 +47,34 @@ RSpec.describe PopulationCalculator do
     end
   end
 
-  describe "estimated_future_pop" do
+  describe "future_pop_exponential" do
     it "returns a value based off estimated growth rates" do
       pop_start = Population.new year: Date.new(1990), population: 100
       expected = Population.new year: Date.new(1991), population: 109
-      actual = PopulationCalculator.estimated_future_pop(pop_start, 1991)
+      actual = PopulationCalculator.future_pop_exponential(pop_start, 1991)
 
       expect(actual.year).to eq(expected.year)
       expect(actual.population).to eq(expected.population)
 
       expected = Population.new year: Date.new(1992), population: 118
-      actual = PopulationCalculator.estimated_future_pop(pop_start, 1992)
+      actual = PopulationCalculator.future_pop_exponential(pop_start, 1992)
 
       expect(actual.year).to eq(expected.year)
       expect(actual.population).to eq(expected.population)
+    end
+  end
+
+  describe "future_pop_logistic" do
+    it "returns a value based off logistic growth rates" do
+      pop_start = Population.new year: Date.new(1990), population: 248709873
+      expected = Population.new year: Date.new(1995), population: 327315265
+
+      actual = PopulationCalculator.future_pop_logistic(pop_start, 1995)
+      expect(actual.year).to eq(expected.year)
+      expect(actual.population).to eq(expected.population)
+
+      far_future = PopulationCalculator.future_pop_logistic(pop_start, 2450)
+      expect(far_future.population).to be <= PopulationCalculator.carrying_capacity
     end
   end
 end

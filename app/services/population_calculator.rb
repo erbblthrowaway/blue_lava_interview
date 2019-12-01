@@ -1,6 +1,8 @@
 class PopulationCalculator
+  cattr_reader :carrying_capacity
 
   @estimated_future_growth_rate = 0.09
+  @@carrying_capacity = 750000000
 
   def self.get_year_difference(min_year, max_year)
     min_year = min_year.to_i
@@ -40,7 +42,7 @@ class PopulationCalculator
     Population.new(year: Date.new(target_year), population: target_pop)
   end
 
-  def self.estimated_future_pop(last_known_pop, target_year)
+  def self.future_pop_exponential(last_known_pop, target_year)
     if target_year > 2500
       throw ArgumentError "Can only estimate years up to the year 2500"
     end
@@ -50,6 +52,29 @@ class PopulationCalculator
 
     pop_multiplier = (1 + @estimated_future_growth_rate) ** year_diff
     estimated_pop = (pop_start * pop_multiplier).to_i
+    Population.new year: Date.new(target_year), population: estimated_pop
+  end
+
+  def self.carrying_capacity_ratio(population)
+    (@@carrying_capacity - population).to_f / @@carrying_capacity
+  end
+
+  def self.logistic_pop_for_year(year, target_year, population)
+    return population if year == target_year
+
+    capacity_ratio = carrying_capacity_ratio(population)
+    pop_delta = @estimated_future_growth_rate * capacity_ratio * population
+    logistic_pop_for_year(year + 1, target_year, pop_delta + population)
+  end
+
+  def self.future_pop_logistic(last_known_pop, target_year)
+    if target_year > 2500
+      throw ArgumentError "Can only estimate years up to the year 2500"
+    end
+
+    start_pop = last_known_pop.population
+    start_year = last_known_pop.year.year
+    estimated_pop = logistic_pop_for_year(start_year, target_year, start_pop)
     Population.new year: Date.new(target_year), population: estimated_pop
   end
 end

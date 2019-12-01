@@ -6,9 +6,4 @@ RSpec.describe "Get population by year", type: :system do
     assert_selector "input[name=year]"
     assert_selector "button[type=submit]"
   end
-
-  describe "When user enters a valid year" do
-    it "redirects to a results page"
-    it "shows a population figure"
-  end
 end
