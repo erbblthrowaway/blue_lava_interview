@@ -1,0 +1,16 @@
+<h2>Request Logs</h2>
+
+<table>
+  <thead>
+  <th>Query</th>
+  <th>Response</th>
+  </thead>
+  <tbody>
+  <% log_entries.each do |entry| %>
+    <tr>
+      <td><%= entry.query %></td>
+      <td><%= entry.response %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

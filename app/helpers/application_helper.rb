@@ -10,4 +10,8 @@ module ApplicationHelper
     @population
   end
 
+  def log_entries
+    @log_entries
+  end
+
 end
