@@ -9,7 +9,8 @@
   <% log_entries.each do |entry| %>
     <tr>
       <td><%= entry.query %></td>
-      <td><%= entry.response %></td>
+      <td><%= entry.response or 'No response' %></td>
+      <td><%= entry.exact ? 'Exact' : 'Calculated' %></td>
     </tr>
   <% end %>
   </tbody>

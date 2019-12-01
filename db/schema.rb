@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_30_212450) do
+ActiveRecord::Schema.define(version: 2019_12_01_152329) do
 
   create_table "populations", force: :cascade do |t|
     t.date "year"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_212450) do
     t.integer "response"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "exact"
   end
 
 end
