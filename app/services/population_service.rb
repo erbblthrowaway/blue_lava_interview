@@ -24,8 +24,9 @@ class PopulationService
   end
 
   def self.request_population(year)
+    year = year.to_i
     pop_value = get_population year
-    logged_value = RequestLog.create! query: year, response: pop_value[:population], exact: pop_value[:exact]
+    logged_value = RequestLog.create!({query: Date.new(year), response: pop_value[:population], exact: pop_value[:exact]})
     logged_value.save
 
     pop_value[:population]

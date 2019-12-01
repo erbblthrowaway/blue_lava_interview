@@ -1,5 +1,22 @@
 <h2>Request Logs</h2>
 
+<h3>Most popular "exact" years</h3>
+<table>
+  <thead>
+  <th>Year</th>
+  <th>Query Count</th>
+  </thead>
+  <tbody>
+  <% most_popular_years.each do |entry| %>
+  <tr>
+    <td><%= entry["year"] %></td>
+    <td><%= entry["query_count"] %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<h3>Last 50 requests</h3>
 <table>
   <thead>
   <th>Query</th>

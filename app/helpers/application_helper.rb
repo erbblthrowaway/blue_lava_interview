@@ -14,4 +14,8 @@ module ApplicationHelper
     @log_entries
   end
 
+  def most_popular_years
+    @most_popular
+  end
+
 end
